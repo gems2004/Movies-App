@@ -12,8 +12,8 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         `/discover/movie?include_adult=false&language=en-US&page=1&sort_by=popularity.desc`,
       providesTags: (result, error, arg) =>
         result
-          ? [...result.results.map(({ id }) => ({ type: "Post", id })), "Post"]
-          : ["Post"],
+          ? [...result.results.map(({ id }) => ({ type: "Show", id })), "Show"]
+          : ["Show"],
     }),
   }),
 });
