@@ -2,15 +2,18 @@ import MoviesList from "./features/movies/MoviesList";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import MovieInfo from "./features/movies/MovieInfo";
+import Navbar from "./components/Navbar";
+import MorePage from "./pages/MorePage";
 
 function App() {
   return (
     <>
-      <h1>Hello</h1>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<MoviesList />} />
           <Route path=":id" element={<MovieInfo />} />
+          <Route path="/:type/:page" element={<MorePage />} />
         </Route>
       </Routes>
     </>
