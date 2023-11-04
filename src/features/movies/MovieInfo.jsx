@@ -13,9 +13,11 @@ function MovieInfo() {
   if (isFetching) content = <p>Loading...</p>; //spinner here
   else if (!isFetching && isSuccess) {
     content = (
-      <div>
-        <h1>{movie.title}</h1>
-        <p>{movie.overview}</p>
+      <div className="text-white mx-8">
+        <div className="mx-auto my-8">
+          <h1 className="text-4xl text-red-500 text-center">{movie.title}</h1>
+          <p>{movie.overview}</p>
+        </div>
       </div>
     );
   } else content = <p>Not Found</p>;
