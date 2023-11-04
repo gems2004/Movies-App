@@ -8,8 +8,8 @@ const initialState = moviesAdapter.getInitialState();
 export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     discoverMovies: builder.query({
-      query: (adult, language, sort) =>
-        `/discover/movie?include_adult=false&language=en-US&page=1&sort_by=popularity.desc`,
+      query: (page) =>
+        `/discover/movie?include_adult=false&language=en-US&page=${page}&sort_by=popularity.desc`,
       providesTags: (result, error, arg) =>
         result
           ? [...result.results.map(({ id }) => ({ type: "Show", id })), "Show"]
