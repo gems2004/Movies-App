@@ -9,7 +9,7 @@ import Drawer from "../../components/Drawer";
 import { useSelector } from "react-redux";
 
 function MoviesList() {
-  const { data: movies, isFetching, isSuccess } = useDiscoverMoviesQuery();
+  const { data: movies, isFetching, isSuccess } = useDiscoverMoviesQuery(1);
 
   const {
     data: popular,
@@ -24,12 +24,14 @@ function MoviesList() {
     <div>
       <Drawer
         title="Discover Movies"
+        type="discover"
         shows={movies}
         isFetching={isFetching}
         isSuccess={isSuccess}
       />
       <Drawer
         title="Popular Movies"
+        type="popular"
         shows={popular}
         isFetching={isPopFetching}
         isSuccess={isPopSuccess}
