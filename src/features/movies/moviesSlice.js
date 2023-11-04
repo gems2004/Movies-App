@@ -10,15 +10,10 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
     discoverMovies: builder.query({
       query: (adult, language, sort) =>
         `/discover/movie?include_adult=false&language=en-US&page=1&sort_by=popularity.desc`,
-      providesTags: (result, error, args) => console.log(result),
-      // [
-      //   "Show",
-      //   ...result.map(({ id }) => ({ type: "Show", id })),
-      // ],
-      providesTags: (result, error, arg) => [
-        { type: "Show", id: "LIST" },
-        ...result.ids?.map((id) => ({ type: "Show", id })),
-      ],
+      providesTags: (result, error, arg) =>
+        result
+          ? [...result.results.map(({ id }) => ({ type: "Post", id })), "Post"]
+          : ["Post"],
     }),
   }),
 });
