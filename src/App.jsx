@@ -1,12 +1,18 @@
-import { useDiscoverMoviesQuery } from "./features/movies/moviesSlice";
+import MoviesList from "./features/movies/MoviesList";
+import { Route, Routes } from "react-router-dom";
+import Layout from "./components/Layout";
+import MovieInfo from "./features/movies/MovieInfo";
 
 function App() {
-  const { data, isLoading, isSuccess, isError, error } =
-    useDiscoverMoviesQuery();
-  console.log(data);
   return (
     <>
       <h1>Hello</h1>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<MoviesList />} />
+          <Route path=":id" element={<MovieInfo />} />
+        </Route>
+      </Routes>
     </>
   );
 }
