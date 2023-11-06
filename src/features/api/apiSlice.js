@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const apiSlice = createApi({
-  reducerPath: "api", // default value
+export const movieApi = createApi({
+  reducerPath: "movieApi", // default value
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.VITE_MOVIES_URL,
     prepareHeaders: (headers) => {
@@ -12,3 +12,15 @@ export const apiSlice = createApi({
   tagTypes: ["Show"],
   endpoints: (builder) => ({}),
 });
+export const ipApi = createApi({
+  reducerPath: "ipApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: "http://ip-api.com/",
+  }),
+  endpoints: (builder) => ({
+    getLocation: builder.query({
+      query: () => `json`,
+    }),
+  }),
+});
+export const { useGetLocationQuery } = ipApi;

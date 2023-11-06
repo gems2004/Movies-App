@@ -1,11 +1,11 @@
 import { createSelector, createEntityAdapter } from "@reduxjs/toolkit";
-import { apiSlice } from "../api/apiSlice";
+import { movieApi } from "../api/apiSlice";
 
 const moviesAdapter = createEntityAdapter({});
 
 const initialState = moviesAdapter.getInitialState();
 
-export const extendedApiSlice = apiSlice.injectEndpoints({
+export const extendedApiSlice = movieApi.injectEndpoints({
   endpoints: (builder) => ({
     discoverMovies: builder.query({
       query: (page) =>

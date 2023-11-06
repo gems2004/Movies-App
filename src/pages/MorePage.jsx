@@ -10,7 +10,7 @@ function MorePage() {
   if (type === "discover") {
     content = useDiscoverMoviesQuery(page).data;
   }
-  console.log(content);
+  // console.log(content);
 
   return (
     <div className="text-white">

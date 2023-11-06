@@ -7,18 +7,20 @@ import {
 } from "./moviesSlice";
 import Drawer from "../../components/Drawer";
 import { useSelector } from "react-redux";
+import { useGetLocationQuery } from "../api/apiSlice";
 
 function MoviesList() {
   const { data: movies, isFetching, isSuccess } = useDiscoverMoviesQuery(1);
-
+  const { data } = useGetLocationQuery();
+  // console.log(data);
   const {
     data: popular,
     isFetching: isPopFetching,
     isSuccess: isPopSuccess,
   } = useGetPopularMoviesQuery();
 
-  console.log(movies);
-  console.log(false, popular);
+  // console.log(movies);
+  // console.log(false, popular);
 
   return (
     <div>

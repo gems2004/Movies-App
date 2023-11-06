@@ -4,10 +4,10 @@ import { useGetMovieByIdQuery } from "./moviesSlice";
 
 function MovieInfo() {
   const { id: movieId } = useParams();
-  console.log(movieId);
+  // console.log(movieId);
 
   const { data: movie, isFetching, isSuccess } = useGetMovieByIdQuery(movieId);
-  console.log(isFetching, movie);
+  // console.log(isFetching, movie);
 
   let content;
   if (isFetching) content = <p>Loading...</p>; //spinner here

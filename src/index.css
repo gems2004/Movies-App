@@ -6,3 +6,50 @@ body {
   font-family: "Roboto", sans-serif;
   background-color: rgb(39, 39, 39);
 }
+@layer utilities {
+  @variants responsive {
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  }
+}
+@keyframes size {
+  from {
+    width: 2rem;
+    h: 2rem;
+    padding-left: 0.75rem;
+  }
+  to {
+    width: 12rem;
+    height: 2rem;
+    padding-left: 0.75rem;
+  }
+}
+@keyframes sizeReverse {
+  from {
+    width: 12rem;
+    height: 2rem;
+    padding-left: 0.75rem;
+  }
+  to {
+    width: 2rem;
+    height: 2rem;
+    padding-left: 0.75rem;
+  }
+}
+
+.searchBar {
+  animation-name: size;
+  animation-duration: 1500ms;
+  animation-direction: normal;
+}
+.searchBarReversed {
+  animation-name: sizeReverse;
+  animation-duration: 1500ms;
+  animation-direction: normal;
+}
