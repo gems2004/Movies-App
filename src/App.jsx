@@ -4,6 +4,7 @@ import Layout from "./components/Layout";
 import MovieInfo from "./features/movies/MovieInfo";
 import Navbar from "./components/Navbar";
 import MorePage from "./pages/MorePage";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route index element={<MoviesList />} />
           <Route path=":id" element={<MovieInfo />} />
           <Route path="/:type/:page" element={<MorePage />} />
+          <Route path="/search/:q" element={<SearchPage />} />
         </Route>
       </Routes>
     </>

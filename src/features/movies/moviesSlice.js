@@ -19,14 +19,33 @@ export const extendedApiSlice = movieApi.injectEndpoints({
       query: (id) => `/movie/${id}?language=en-US`,
     }),
     getPopularMovies: builder.query({
-      query: () => `/movie/popular?language=en-US&page=1`,
+      query: (page, region) =>
+        `/movie/popular?language=en-US&page=${page}&region=${region}`,
       providesTags: (result, error, arg) =>
         result
           ? [...result.results.map(({ id }) => ({ type: "Show", id })), "Show"]
           : ["Show"],
     }),
     getUpcomingMovies: builder.query({
-      query: () => "/movie/upcoming?language=en-US&page=1",
+      query: () => `/movie/upcoming?language=en-US&page=${page}`,
+      providesTags: (result, error, arg) =>
+        result
+          ? [...result.results.map(({ id }) => ({ type: "Show", id })), "Show"]
+          : ["Show"],
+    }),
+    discoverTvShows: builder.query({
+      query: (page) =>
+        `/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=${page}&sort_by=popularity.desc`,
+
+      providesTags: (result, error, arg) =>
+        result
+          ? [...result.results.map(({ id }) => ({ type: "Show", id })), "Show"]
+          : ["Show"],
+    }),
+    popularTvShows: builder.query({
+      query: (page, region) =>
+        `/tv/popular?language=en-US&page=${page}&region=${region}`,
+
       providesTags: (result, error, arg) =>
         result
           ? [...result.results.map(({ id }) => ({ type: "Show", id })), "Show"]
@@ -39,6 +58,8 @@ export const {
   useGetMovieByIdQuery,
   useGetPopularMoviesQuery,
   useGetUpcomingMoviesQuery,
+  useDiscoverTvShowsQuery,
+  usePopularTvShowsQuery,
 } = extendedApiSlice;
 
 export const selectMoviesResult =

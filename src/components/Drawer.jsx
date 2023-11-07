@@ -26,8 +26,8 @@ function Drawer({ title, type, shows, isFetching, isSuccess }) {
               />
             </div>
             <div className="text-center">
-              <h2>{show.title}</h2>
-              <p>{show.release_date}</p>
+              <h2>{show.title || show.name}</h2>
+              <p>{show.release_date || show.first_air_date}</p>
             </div>
           </Link>
         </div>

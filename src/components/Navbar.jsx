@@ -7,19 +7,30 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Navbar() {
+  const navigate = useNavigate();
   const [actions, setActions] = useState({
     searchButton: false,
     searchField: "",
     hamburgerMenu: false,
   });
   console.log(actions);
-
+  function searchClickHandler() {
+    setActions((prevState) => {
+      return {
+        ...prevState,
+        searchButton: true,
+      };
+    });
+    if (actions.searchField) {
+      navigate(`/search/${actions.searchField}`);
+    }
+  }
   return (
-    <>
-      <nav className="bg-black text-red-500 px-6 py-4 flex justify-end items-center">
+    <div>
+      <nav className="bg-black text-red-500 px-6 py-4 flex justify-end items-center fixed z-50 w-full">
         <Link className="flex-1" to="/">
           <h1>Logo</h1>
         </Link>
@@ -27,7 +38,7 @@ function Navbar() {
           <input
             type="text"
             id="search"
-            className={`rounded-full   h-8 pl-3 ${
+            className={`rounded-full  text-black h-8 pl-3 ${
               actions.searchButton
                 ? "searchBar w-48 h-8"
                 : "searchBarReversed w-8 h-8"
@@ -67,14 +78,7 @@ function Navbar() {
           </button>
           <button
             className={`w-8 h-8 rounded-full absolute right-0 hover:cursor-pointer bg-[#DC5F00]`}
-            onClick={() => {
-              setActions((prevState) => {
-                return {
-                  ...prevState,
-                  searchButton: true,
-                };
-              });
-            }}
+            onClick={searchClickHandler}
             type="button"
           >
             <FontAwesomeIcon icon={faSearch} style={{ color: "#000000" }} />
@@ -95,11 +99,17 @@ function Navbar() {
         </button>
       </nav>
       <section
-        className={`fixed  h-screen bg-black right-0 z-50 transition-all ${
-          actions.hamburgerMenu ? "w-40" : "w-0"
-        }`}
-      ></section>
-    </>
+        className={`fixed z-40 h-screen w-screen bg-black transition-opacity   ${
+          actions.hamburgerMenu ? "" : "w-0 h-0 opacity-0"
+        } bg-opacity-30`}
+      >
+        <div
+          className={`bg-black h-screen  float-right  ${
+            actions.hamburgerMenu ? "w-40" : "w-0"
+          }`}
+        ></div>
+      </section>
+    </div>
   );
 }
 
