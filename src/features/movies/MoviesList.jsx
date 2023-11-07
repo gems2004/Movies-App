@@ -1,20 +1,22 @@
 import React from "react";
 import {
-  selectAllData,
-  selectAllMovies,
   useDiscoverMoviesQuery,
   useDiscoverTvShowsQuery,
   useGetPopularMoviesQuery,
-  usePopularTvShowsQuery,
+  useGetPopularTvShowsQuery,
 } from "./moviesSlice";
 import Drawer from "../../components/Drawer";
-import { useSelector } from "react-redux";
 import { useGetLocationQuery } from "../api/apiSlice";
 
 function MoviesList() {
-  const { data: movies, isFetching, isSuccess } = useDiscoverMoviesQuery(1);
   const { data: ip } = useGetLocationQuery();
-  console.log(ip);
+
+  const {
+    data: movies,
+    isFetching,
+    isSuccess,
+    isLoading,
+  } = useDiscoverMoviesQuery(1);
   const {
     data: popular,
     isFetching: isPopFetching,
@@ -29,7 +31,7 @@ function MoviesList() {
     data: popTv,
     isFetching: isPopTvFetching,
     isSuccess: isPopTvSuccess,
-  } = usePopularTvShowsQuery(1, ip?.countryCode);
+  } = useGetPopularTvShowsQuery(1, ip?.countryCode);
 
   return (
     <div className="pt-16">
@@ -39,6 +41,7 @@ function MoviesList() {
         shows={movies}
         isFetching={isFetching}
         isSuccess={isSuccess}
+        isLoading={isLoading}
       />
       <Drawer
         title={`Popular Movies In ${ip?.country}`}
@@ -49,14 +52,14 @@ function MoviesList() {
       />
       <Drawer
         title="Discover Tv Shows"
-        type="discover"
+        type="discoverTv"
         shows={discoverTv}
         isFetching={isPopFetching}
         isSuccess={isPopSuccess}
       />
       <Drawer
         title={`Popular Tv Shows In ${ip?.country}`}
-        type="popular"
+        type="popularTv"
         shows={popTv}
         isFetching={isPopFetching}
         isSuccess={isPopSuccess}
