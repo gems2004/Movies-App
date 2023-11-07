@@ -45,11 +45,11 @@ body {
 
 .searchBar {
   animation-name: size;
-  animation-duration: 1500ms;
+  animation-duration: 600ms;
   animation-direction: normal;
 }
 .searchBarReversed {
   animation-name: sizeReverse;
-  animation-duration: 1500ms;
+  animation-duration: 600ms;
   animation-direction: normal;
 }
