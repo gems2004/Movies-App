@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const movieApi = createApi({
-  reducerPath: "movieApi", // default value
+  reducerPath: "movieApi",
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.VITE_MOVIES_URL,
     prepareHeaders: (headers) => {
