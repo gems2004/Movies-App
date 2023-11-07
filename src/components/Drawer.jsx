@@ -1,17 +1,47 @@
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import {
+  useDiscoverMoviesQuery,
+  useDiscoverTvShowsQuery,
+  useGetPopularMoviesQuery,
+  useGetPopularTvShowsQuery,
+} from "../features/movies/moviesSlice";
 
-function Drawer({ title, type, shows, isFetching, isSuccess }) {
-  const ref = useRef(null);
+function Drawer({ title, type, shows, isFetching, isSuccess, isLoading }) {
+  const [loadedShows, setLoadedShows] = useState([]);
+  const [page, setPage] = useState(2);
+
+  useEffect(() => {
+    setLoadedShows(shows?.results);
+  }, [shows]);
+
+  // const ref = useRef(null);
+
   function scroller(scrollOffset) {
     ref.current.scrollLeft += scrollOffset;
   }
+  let data;
+  type === "discover"
+    ? (data = useDiscoverMoviesQuery(page).data)
+    : type === "popular"
+    ? (data = useGetPopularMoviesQuery(page).data)
+    : type === "discoverTv"
+    ? (data = useDiscoverTvShowsQuery(page).data)
+    : (data = useGetPopularTvShowsQuery(page).data);
+
+  function loadMoreShows() {
+    const newShows = data?.results;
+    console.log(data);
+    setLoadedShows((prevState) => [...prevState, ...newShows]);
+    setPage((prevState) => prevState + 1);
+  }
+
   let content;
   if (isFetching) content = <p>Loading...</p>; // Spinner here
-  else if (!isFetching && isSuccess) {
-    content = shows.results.map((show) => {
+  else if (!isFetching && isSuccess && !isLoading) {
+    content = loadedShows?.map((show) => {
       return (
         <div key={show.id} className="mr-4">
           <Link
@@ -44,18 +74,18 @@ function Drawer({ title, type, shows, isFetching, isSuccess }) {
         </span>
       </h1>
       <div
-        className="flex overflow-x-scroll relative scroll-smooth no-scrollbar"
-        ref={ref}
+        className="flex overflow-x-scroll relative scroll-smooth"
+        // ref={ref}
       >
         {content}
-        <div className="mt-28">
+        <button className="mt-28" onClick={loadMoreShows}>
           <FontAwesomeIcon
             icon={faArrowRight}
             style={{ color: "#dc2626" }}
             size="4x"
           />
           <div className="w-20 text-[11px] text-red-600">Load More</div>
-        </div>
+        </button>
       </div>
     </div>
   );
