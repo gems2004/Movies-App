@@ -38,13 +38,14 @@ function Navbar() {
           <input
             type="text"
             id="search"
-            className={`rounded-full  text-black h-8 pl-3 ${
+            name="search"
+            placeholder="Search"
+            autoComplete="false"
+            className={`rounded-full text-black h-8 pl-3 outline-none ${
               actions.searchButton
                 ? "searchBar w-48 h-8"
                 : "searchBarReversed w-8 h-8"
             }`}
-            name="search"
-            placeholder="Search"
             onChange={(e) => {
               setActions((prevState) => {
                 return {
@@ -58,9 +59,7 @@ function Navbar() {
           <button
             disabled={actions.searchButton ? false : true}
             className={`absolute right-10 top-1  ${
-              actions.searchButton
-                ? "opacity-100 delay-[1200ms]"
-                : "opacity-0 delay-0"
+              actions.searchButton ? "opacity-100 delay-[500ms]" : "opacity-0"
             } transition-opacity `}
             onClick={() => {
               setActions((prevState) => {
@@ -77,7 +76,7 @@ function Navbar() {
             <FontAwesomeIcon icon={faX} />
           </button>
           <button
-            className={`w-8 h-8 rounded-full absolute right-0 hover:cursor-pointer bg-[#DC5F00]`}
+            className={`w-8 h-8 rounded-full absolute right-0 hover:cursor-pointer bg-red-500`}
             onClick={searchClickHandler}
             type="button"
           >
@@ -99,8 +98,8 @@ function Navbar() {
         </button>
       </nav>
       <section
-        className={`fixed z-40 h-screen w-screen bg-black transition-opacity   ${
-          actions.hamburgerMenu ? "" : "w-0 h-0 opacity-0"
+        className={`fixed z-40 bg-black transition-opacity   ${
+          actions.hamburgerMenu ? "h-screen w-screen" : "w-0 h-0 opacity-0"
         } bg-opacity-30`}
       >
         <div
