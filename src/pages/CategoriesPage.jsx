@@ -1,32 +1,32 @@
-import React from "react";
-import { useSearchQuery } from "../features/movies/moviesSlice";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useState } from "react";
 import List from "../components/List";
+import { useNavigate, useParams } from "react-router-dom";
+import { useCategoriesQuery } from "../features/movies/moviesSlice";
 
-const SearchPage = () => {
+const CategoriesPage = () => {
+  const { type, id, page } = useParams();
+  const { data } = useCategoriesQuery({ type: type, genre: id, page: page });
+  console.log(data);
   const navigate = useNavigate();
-  const { query, page } = useParams();
-  const { data: result } = useSearchQuery({ query: query, pageNum: page });
-  console.log(result);
   function ButtonsLogic() {
     if (page == 1) {
       return (
         <button
           className="bg-red-600 w-32 h-10 rounded-md"
           onClick={() => {
-            navigate(`/search/${query}/${Number(page) + 1}`);
+            navigate(`/categories/${type}/${id}/${Number(page) + 1}`);
             window.scrollTo(0, 0);
           }}
         >
           Next Page
         </button>
       );
-    } else if (page == result?.total_pages) {
+    } else if (page == data?.total_pages) {
       return (
         <button
           className="bg-red-600 w-32 h-10 rounded-md"
           onClick={() => {
-            navigate(`/search/${query}/${Number(page) - 1}`);
+            navigate(`/categories/${type}/${id}/${Number(page) - 1}`);
             window.scrollTo(0, 0);
           }}
         >
@@ -39,7 +39,7 @@ const SearchPage = () => {
           <button
             className="bg-red-600 w-32 h-10 rounded-md"
             onClick={() => {
-              navigate(`/search/${query}/${Number(page) + 1}`);
+              navigate(`/categories/${type}/${id}/${Number(page) + 1}`);
               window.scrollTo(0, 0);
             }}
           >
@@ -48,7 +48,7 @@ const SearchPage = () => {
           <button
             className="bg-red-600 w-32 h-10 rounded-md"
             onClick={() => {
-              navigate(`/search/${query}/${Number(page) - 1}`);
+              navigate(`/categories/${type}/${id}/${Number(page) - 1}`);
               window.scrollTo(0, 0);
             }}
           >
@@ -60,7 +60,7 @@ const SearchPage = () => {
   }
   return (
     <div>
-      <List results={result?.results} />
+      <List results={data?.results} />
       <div className="flex text-white justify-center gap-10">
         {ButtonsLogic()}
       </div>
@@ -68,4 +68,4 @@ const SearchPage = () => {
   );
 };
 
-export default SearchPage;
+export default CategoriesPage;

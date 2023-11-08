@@ -37,7 +37,7 @@ function Drawer({ title, type, shows, isFetching, isSuccess, isLoading }) {
     setLoadedShows((prevState) => [...prevState, ...newShows]);
     setPage((prevState) => prevState + 1);
   }
-
+  console.log(shows);
   let content;
   if (isFetching) content = <p>Loading...</p>; // Spinner here
   else if (!isFetching && isSuccess && !isLoading) {
@@ -45,7 +45,7 @@ function Drawer({ title, type, shows, isFetching, isSuccess, isLoading }) {
       return (
         <div key={show.id} className="mr-4">
           <Link
-            to={`/${show.id}`}
+            to={`/${show.first_air_date ? "tv" : "movie"}/${show.id}`}
             className="flex flex-col justify-around items-center min-w-[100px] min-h-[150px]"
           >
             <div className="w-44">
@@ -67,14 +67,9 @@ function Drawer({ title, type, shows, isFetching, isSuccess, isLoading }) {
 
   return (
     <div className="text-white px-4">
-      <h1 className="font-extrabold text-2xl pt-4">
-        {title}:
-        <span className="text-base pl-2 text-red-600 underline">
-          <Link to={`/${type}/1`}>more</Link>
-        </span>
-      </h1>
+      <h1 className="font-extrabold text-2xl pt-4">{title}:</h1>
       <div
-        className="flex overflow-x-scroll relative scroll-smooth"
+        className="flex overflow-x-scroll relative scroll-smooth no-scrollbar"
         // ref={ref}
       >
         {content}

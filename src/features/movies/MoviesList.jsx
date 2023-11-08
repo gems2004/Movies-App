@@ -21,7 +21,7 @@ function MoviesList() {
     data: popular,
     isFetching: isPopFetching,
     isSuccess: isPopSuccess,
-  } = useGetPopularMoviesQuery(1, ip?.countryCode);
+  } = useGetPopularMoviesQuery({ page: 1, region: ip?.countryCode });
   const {
     data: discoverTv,
     isFetching: isTvFetching,
@@ -31,7 +31,7 @@ function MoviesList() {
     data: popTv,
     isFetching: isPopTvFetching,
     isSuccess: isPopTvSuccess,
-  } = useGetPopularTvShowsQuery(1, ip?.countryCode);
+  } = useGetPopularTvShowsQuery({ page: 1, region: ip?.countryCode });
 
   return (
     <div className="pt-16">
@@ -43,6 +43,7 @@ function MoviesList() {
         isSuccess={isSuccess}
         isLoading={isLoading}
       />
+      <hr className="border-[#CF0A0A] w-11/12 mx-4" />
       <Drawer
         title={`Popular Movies In ${ip?.country}`}
         type="popular"
@@ -50,6 +51,7 @@ function MoviesList() {
         isFetching={isPopFetching}
         isSuccess={isPopSuccess}
       />
+      <hr className="border-[#CF0A0A] w-11/12 mx-4" />
       <Drawer
         title="Discover Tv Shows"
         type="discoverTv"
@@ -57,6 +59,7 @@ function MoviesList() {
         isFetching={isPopFetching}
         isSuccess={isPopSuccess}
       />
+      <hr className="border-[#CF0A0A] w-11/12 mx-4" />
       <Drawer
         title={`Popular Tv Shows In ${ip?.country}`}
         type="popularTv"
@@ -64,6 +67,7 @@ function MoviesList() {
         isFetching={isPopFetching}
         isSuccess={isPopSuccess}
       />
+      <hr className="border-[#CF0A0A] w-11/12 mx-4" />
     </div>
   );
 }
