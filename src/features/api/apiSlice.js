@@ -15,7 +15,7 @@ export const movieApi = createApi({
 export const ipApi = createApi({
   reducerPath: "ipApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://ip-api.com/",
+    baseUrl: "https://ip-api.com/",
   }),
   endpoints: (builder) => ({
     getLocation: builder.query({
