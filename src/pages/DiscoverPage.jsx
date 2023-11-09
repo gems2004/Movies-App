@@ -4,7 +4,8 @@ import {
   useLazyDiscoverFilterQuery,
   useLazyGenreListQuery,
 } from "../features/movies/moviesSlice";
-
+import Lottie from "lottie-react";
+import Loader from "../assets/Loader.json";
 const DiscoverPage = () => {
   const [filter, setFilter] = useState({
     type: "",
@@ -51,8 +52,10 @@ const DiscoverPage = () => {
   const date = new Date();
   const [triggerGenre, { data: genreList, isLoading: genreLoading }] =
     useLazyGenreListQuery();
-  const [triggerSearch, { data: discoverByFilter, isSuccess: searchSuccess }] =
-    useLazyDiscoverFilterQuery();
+  const [
+    triggerSearch,
+    { data: discoverByFilter, isSuccess: searchSuccess, isFetching },
+  ] = useLazyDiscoverFilterQuery();
   console.log(discoverByFilter);
   useEffect(() => {
     if (filter.type == "movie" || filter.type == "tv") {
@@ -91,19 +94,19 @@ const DiscoverPage = () => {
             className="bg-red-600 w-32 h-10 rounded-md"
             onClick={() => {
               window.scrollTo(0, 0);
-              nextPage();
+              prevPage();
             }}
           >
-            Next Page
+            Previous Page
           </button>
           <button
             className="bg-red-600 w-32 h-10 rounded-md"
             onClick={() => {
               window.scrollTo(0, 0);
-              prevPage();
+              nextPage();
             }}
           >
-            Previous Page
+            Next Page
           </button>
         </>
       );
@@ -119,6 +122,7 @@ const DiscoverPage = () => {
       genre: filter.genre,
     });
   }, [filter.page]);
+
   return (
     <div className="pt-20 flex flex-col items-center">
       <form
@@ -221,14 +225,18 @@ const DiscoverPage = () => {
         </button>
       </form>
       <div>
-        {searchSuccess ? (
+        {searchSuccess && !isFetching ? (
           <>
             <List results={discoverByFilter.results} />
             <div className="flex text-white justify-center gap-10">
               {ButtonsLogic()}
             </div>
           </>
-        ) : undefined}
+        ) : (
+          <div className="grid place-content-center h-96">
+            <Lottie className="w-48 mix-blend-lighten" animationData={Loader} />
+          </div>
+        )}
       </div>
     </div>
   );

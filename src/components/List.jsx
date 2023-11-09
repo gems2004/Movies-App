@@ -13,17 +13,26 @@ const List = (results) => {
               key={items.id}
               className="my-2"
               onClick={() => {
-                navigate(`/${items.id}`);
+                navigate(
+                  `/${items.first_air_date ? "tv" : "movie"}/${items.id}`
+                );
               }}
             >
-              <div className="w-44">
+              <div className="w-[176px] h-[264px]">
                 <img
                   src={`https://image.tmdb.org/t/p/w500${items.poster_path}`}
                   alt=""
                   className="rounded-xl"
                 />
               </div>
-              <h2 className="text-center w-44">{items.title || items.name}</h2>
+              <div className="my-2">
+                <h2 className="text-center w-44">
+                  {items.title || items.name}
+                </h2>
+                <h2 className="text-center w-44">
+                  {items.release_date || items.first_air_date}
+                </h2>
+              </div>
             </div>
           );
         })}

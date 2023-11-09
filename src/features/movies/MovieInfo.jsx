@@ -5,13 +5,19 @@ import {
   useRecommendedQuery,
   useSimilarQuery,
 } from "./moviesSlice";
-import Drawer from "../../components/Drawer";
+import MovieInfoDrawer from "../../components/MovieInfoDrawer";
+import Lottie from "lottie-react";
+import Loader from "../../assets/Loader.json";
 
 function MovieInfo() {
   const { type: showType, id: movieId } = useParams();
   // console.log(movieId);
 
-  const { data: movie, isFetching, isSuccess } = useGetMovieByIdQuery(movieId);
+  const {
+    data: movie,
+    isFetching,
+    isSuccess,
+  } = useGetMovieByIdQuery({ id: movieId, type: showType });
   const {
     data: similar,
     isFetching: similarFetching,
@@ -26,12 +32,18 @@ function MovieInfo() {
   // console.log(isFetching, movie);
 
   let content;
-  if (isFetching) content = <p>Loading...</p>; //spinner here
+  if (isFetching)
+    content = (
+      <div className="grid w-screen h-screen place-content-center">
+        <Lottie className="w-48 mix-blend-lighten" animationData={Loader} />
+      </div>
+    );
+  //spinner here
   else if (!isFetching && isSuccess) {
     content = (
       <div className="text-white  mx-8 pt-14">
-        <div className="mx-auto py-8 flex flex-col items-center">
-          <div className="w-2/3">
+        <div className=" py-8 flex flex-col w-full items-center">
+          <div className="w-[217px] h-[321px]">
             <img
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               alt=""
@@ -55,12 +67,14 @@ function MovieInfo() {
             })}
           </div>
           <p className="text-center mb-2">{movie.overview}</p>
-          <hr className="w-11/12 border-red-600" />
-
-          <span>Budget: {movie.budget.toLocaleString("en-US")} $</span>
-          <span>Revenue: {movie.revenue.toLocaleString("en-US")} $</span>
-
-          <hr className="w-11/12 border-red-600" />
+          {showType == "movie" ? (
+            <>
+              <hr className="w-11/12 border-red-600" />
+              <span>Budget: {movie.budget.toLocaleString("en-US")} $</span>
+              <span>Revenue: {movie.revenue.toLocaleString("en-US")} $</span>
+              <hr className="w-11/12 border-red-600" />
+            </>
+          ) : undefined}
           <div className="bg-white w-screen h-fit p-2 overflow-scroll my-4">
             <div className="flex justify-center items-center gap-4">
               {movie.production_companies.map((item) => {
@@ -81,6 +95,15 @@ function MovieInfo() {
                 }
               })}
             </div>
+          </div>
+          <div className="w-screen overflow-scroll no-scrollbar ">
+            <MovieInfoDrawer results={similar?.results} title="Similar:" />
+          </div>
+          <div className="w-screen  overflow-scroll no-scrollbar ">
+            <MovieInfoDrawer
+              results={recommended?.results}
+              title="Recommended:"
+            />
           </div>
         </div>
       </div>

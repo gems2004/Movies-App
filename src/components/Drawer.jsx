@@ -48,7 +48,7 @@ function Drawer({ title, type, shows, isFetching, isSuccess, isLoading }) {
             to={`/${show.first_air_date ? "tv" : "movie"}/${show.id}`}
             className="flex flex-col justify-around items-center min-w-[100px] min-h-[150px]"
           >
-            <div className="w-44">
+            <div className="w-[176px] h-[264px]">
               <img
                 src={`https://image.tmdb.org/t/p/w500${show.poster_path}`}
                 alt=""
@@ -73,13 +73,19 @@ function Drawer({ title, type, shows, isFetching, isSuccess, isLoading }) {
         // ref={ref}
       >
         {content}
-        <button className="mt-28" onClick={loadMoreShows}>
-          <FontAwesomeIcon
-            icon={faArrowRight}
-            style={{ color: "#dc2626" }}
-            size="4x"
-          />
-          <div className="w-20 text-[11px] text-red-600">Load More</div>
+        <button
+          className="mt-28"
+          onClick={loadMoreShows}
+          disabled={isFetching ? true : false}
+        >
+          <div className="mb-40">
+            <FontAwesomeIcon
+              icon={faArrowRight}
+              style={{ color: "#dc2626" }}
+              size="4x"
+            />
+            <div className="w-20 text-[11px] text-red-600">Load More</div>
+          </div>
         </button>
       </div>
     </div>

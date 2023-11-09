@@ -16,7 +16,7 @@ export const extendedApiSlice = movieApi.injectEndpoints({
           : ["Show"],
     }),
     getMovieById: builder.query({
-      query: (id) => `/movie/${id}?language=en-US`,
+      query: ({ id, type }) => `/${type}/${id}?language=en-US`,
     }),
     getPopularMovies: builder.query({
       query: ({ page, region }) =>
@@ -27,7 +27,7 @@ export const extendedApiSlice = movieApi.injectEndpoints({
           : ["Show"],
     }),
     getUpcomingMovies: builder.query({
-      query: () => `/movie/upcoming?language=en-US&page=${page}`,
+      query: (page) => `/movie/upcoming?language=en-US&page=${page}`,
       providesTags: (result, error, arg) =>
         result
           ? [...result.results.map(({ id }) => ({ type: "Show", id })), "Show"]

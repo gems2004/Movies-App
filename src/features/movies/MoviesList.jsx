@@ -1,4 +1,5 @@
 import React from "react";
+import Loader from "../../assets/Loader.json";
 import {
   useDiscoverMoviesQuery,
   useDiscoverTvShowsQuery,
@@ -7,6 +8,7 @@ import {
 } from "./moviesSlice";
 import Drawer from "../../components/Drawer";
 import { useGetLocationQuery } from "../api/apiSlice";
+import Lottie from "lottie-react";
 
 function MoviesList() {
   const { data: ip } = useGetLocationQuery();
@@ -32,7 +34,13 @@ function MoviesList() {
     isFetching: isPopTvFetching,
     isSuccess: isPopTvSuccess,
   } = useGetPopularTvShowsQuery({ page: 1, region: ip?.countryCode });
-
+  if (!isSuccess || !isPopSuccess || !isPopTvSuccess || !isTvSuccess) {
+    return (
+      <div className="grid w-screen h-screen place-content-center">
+        <Lottie className="w-48 mix-blend-lighten" animationData={Loader} />
+      </div>
+    );
+  }
   return (
     <div className="pt-16">
       <Drawer
