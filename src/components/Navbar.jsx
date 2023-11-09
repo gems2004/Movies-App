@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Categories from "./Categories";
-
+import Logo from "../assets/Logo.png";
 function Navbar() {
   const navigate = useNavigate();
   const [actions, setActions] = useState({
@@ -34,7 +34,9 @@ function Navbar() {
     <div>
       <nav className="bg-[#CF0A0A] rounded-b-xl text-black px-6 py-4 flex justify-end items-center fixed z-50 w-full">
         <Link className="flex-1" to="/">
-          <h1>Logo</h1>
+          <span>
+            <img src={Logo} className="w-8 mix-blend-darken" alt="" />
+          </span>
         </Link>
         <form className="relative mr-4" onSubmit={(e) => e.preventDefault()}>
           <input
