@@ -19,8 +19,7 @@ export const extendedApiSlice = movieApi.injectEndpoints({
       query: ({ id, type }) => `/${type}/${id}?language=en-US`,
     }),
     getPopularMovies: builder.query({
-      query: ({ page, region }) =>
-        `/movie/popular?language=en-US&page=${page}&region=${region}`,
+      query: (page) => `/movie/popular?language=en-US&page=${page}`,
       providesTags: (result, error, arg) =>
         result
           ? [...result.results.map(({ id }) => ({ type: "Show", id })), "Show"]
@@ -43,8 +42,7 @@ export const extendedApiSlice = movieApi.injectEndpoints({
           : ["Show"],
     }),
     getPopularTvShows: builder.query({
-      query: ({ page, region }) =>
-        `/tv/popular?language=en-US&page=${page}&region=${region}`,
+      query: (page) => `/tv/popular?language=en-US&page=${page}`,
 
       providesTags: (result, error, arg) =>
         result

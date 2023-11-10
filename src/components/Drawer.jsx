@@ -1,4 +1,4 @@
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
@@ -17,7 +17,7 @@ function Drawer({ title, type, shows, isFetching, isSuccess, isLoading }) {
     setLoadedShows(shows?.results);
   }, [shows]);
 
-  // const ref = useRef(null);
+  const ref = useRef(null);
 
   function scroller(scrollOffset) {
     ref.current.scrollLeft += scrollOffset;
@@ -36,8 +36,8 @@ function Drawer({ title, type, shows, isFetching, isSuccess, isLoading }) {
     console.log(data);
     setLoadedShows((prevState) => [...prevState, ...newShows]);
     setPage((prevState) => prevState + 1);
+    console.log(newShows);
   }
-  console.log(shows);
   let content;
   if (isFetching) content = <p>Loading...</p>; // Spinner here
   else if (!isFetching && isSuccess && !isLoading) {
@@ -66,11 +66,21 @@ function Drawer({ title, type, shows, isFetching, isSuccess, isLoading }) {
   } else content = <p>Oops! Nothing found</p>;
 
   return (
-    <div className="text-white px-4">
+    <div className="text-white px-4 relative">
       <h1 className="font-extrabold text-2xl pt-4">{title}:</h1>
       <div
-        className="flex overflow-x-scroll relative scroll-smooth no-scrollbar"
-        // ref={ref}
+        onClick={() => {
+          scroller(-200);
+        }}
+      >
+        <div className="lg:visible self-center mb-24 absolute z-50 top-32">
+          <FontAwesomeIcon icon={faChevronLeft} size="6x" />
+        </div>
+        <div className="lg:bg-gradient-to-r lg:from-[#1e1e1e] lg:to-transparent absolute h-96 w-80 z-40"></div>
+      </div>
+      <div
+        className="flex overflow-x-scroll relative scroll-smooth no-scrollbar rounded-2xl  "
+        ref={ref}
       >
         {content}
         <button
@@ -78,15 +88,31 @@ function Drawer({ title, type, shows, isFetching, isSuccess, isLoading }) {
           onClick={loadMoreShows}
           disabled={isFetching ? true : false}
         >
-          <div className="mb-40">
-            <FontAwesomeIcon
-              icon={faArrowRight}
-              style={{ color: "#dc2626" }}
-              size="4x"
-            />
-            <div className="w-20 text-[11px] text-red-600">Load More</div>
+          <div className="mr-96">
+            <div className="mb-40">
+              <FontAwesomeIcon
+                icon={faArrowRight}
+                style={{ color: "#dc2626" }}
+                size="4x"
+              />
+              <div className="w-20 text-[11px] text-red-600">Load More</div>
+            </div>
           </div>
         </button>
+      </div>
+      <div
+        onClick={() => {
+          scroller(200);
+        }}
+      >
+        <div className="lg:bg-gradient-to-l top-0 right-6 lg:from-[#1e1e1e] lg:to-transparent absolute h-96 w-80 z-40"></div>
+        <div className="self-center mb-24 absolute z-50 right-10 top-32">
+          <FontAwesomeIcon
+            icon={faChevronLeft}
+            style={{ rotate: "180deg" }}
+            size="6x"
+          />
+        </div>
       </div>
     </div>
   );

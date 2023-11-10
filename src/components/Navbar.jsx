@@ -31,7 +31,7 @@ function Navbar() {
     }
   }
   return (
-    <div>
+    <div className="lg:grid lg:grid-rows-2">
       <nav className="bg-[#CF0A0A] rounded-b-xl text-black px-6 py-4 flex justify-end items-center fixed z-50 w-full">
         <Link className="flex-1" to="/">
           <span>
@@ -100,7 +100,7 @@ function Navbar() {
         >
           <FontAwesomeIcon
             icon={faBars}
-            className="transition-all"
+            className="transition-all lg:hidden"
             size="2xl"
             style={
               actions.hamburgerMenu
@@ -112,13 +112,17 @@ function Navbar() {
         </button>
       </nav>
       <section
-        className={`fixed z-40 bg-black transition-all overflow-scroll   ${
-          actions.hamburgerMenu ? "h-screen w-screen" : "w-screen h-0 opacity-0"
-        } bg-opacity-30`}
+        className={`fixed z-40 bg-black lg:row-start-2  lg:row-end-3 lg: lg:overflow-hidden  transition-all  overflow-scroll lg:justify-self-end   ${
+          actions.hamburgerMenu
+            ? "h-screen w-screen"
+            : "w-screen h-0 opacity-0  lg:opacity-100 lg:w-72 lg:h-screen"
+        } bg-opacity-30 lg:bg-opacity-100`}
       >
         <div
-          className={`bg-black  float-right   ${
-            actions.hamburgerMenu ? "w-full h-fit pb-10 rounded-xl" : "w-0"
+          className={`bg-black  float-right    ${
+            actions.hamburgerMenu
+              ? "w-full h-fit pb-10 rounded-xl"
+              : "w-0 lg:w-full "
           }`}
         >
           <ul className="list-none text-red-600 z-50 pt-20 flex flex-col items-center gap-6 text-2xl">

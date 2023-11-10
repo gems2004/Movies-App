@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useRef } from "react";
 
 const MovieInfoDrawer = ({ results, title }) => {
+  const ref = useRef(null);
+
+  function scroller(scrollOffset) {
+    ref.current.scrollLeft += scrollOffset;
+  }
   console.log(results);
   return (
-    <div className="flex flex-col mx-4 gap-3">
+    <div className="flex flex-col mx-4 gap-3 " ref={ref}>
       <span className="text-2xl text-red-600">{title}</span>
       <div className="flex gap-4">
         {results?.map((item) => {
