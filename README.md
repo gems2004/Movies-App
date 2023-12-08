@@ -5,7 +5,6 @@ This repository contains the code for a Movies/Series App Website built using Re
 ## Technologies Used
 - React 18
 - Redux Toolkit
-- API Integration
 - Advanced RTK Technology
 - Tailwind CSS
 
@@ -14,7 +13,7 @@ To get started with the project, follow these steps:
 
 1. Clone the repository.
 2. Install the dependencies using `npm install`.
-3. Run the development server using `npm start`.
+3. Run the development server using `npm run dev`.
 
 ## Features
 - Browse and search for movies and series.
