@@ -22,11 +22,11 @@ To get started with the project, follow these steps:
 - Save favorites and create watchlists.
 
 ## Acknowledgements
-- The project makes use of the following open-source libraries and technologies:
-  - Vite
-  - React
-  - Redux Toolkit
-  - Tailwind CSS
-  - API Integration
+ The project makes use of the following open-source libraries and technologies:
+ - Vite
+ - React
+ - Redux Toolkit
+ - Tailwind CSS
+ - API Integration
 
 Feel free to explore the code and contribute to the project!
